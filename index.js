@@ -21,7 +21,6 @@ let policeYPos = 0;//警察纵坐标
 let policeStepLen = 2;//警察移动步长基数
 let policeDir = 0; //警察动态移动步长（速度）
 
-let mic = null;
 let voiceSize = 0;
 //获取DOM节点
 const thiefProgressNode = document.getElementById('progress');
@@ -41,13 +40,8 @@ function preload() {
 }
 //初次调用
 function setup() {
-  createCanvas(col * gridW + 60, row * gridH).parent('gameCanvas');
-  document.querySelector('.page').style.cssText = `width:${(col + 2) * gridW}px`;
-  try {
-    mic = new p5.AudioIn();
-  } catch (error) {
-    conosle.log(error)
-  }
+  createCanvas(col * gridW + 60, row * gridH).parent('gameCanvas')
+  document.querySelector('.page').style.cssText = `width:${(col + 2) * gridW}px`
 }
 
 //循环体
@@ -92,10 +86,29 @@ function draw() {
 }
 
 
+
+//获取音量大小
+async function getVoiceSize() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true } });// echoCancellation: true以减少回音和噪声的影响
+    const audioContext = new AudioContext();
+    const source = audioContext.createMediaStreamSource(stream);
+    const processor = audioContext.createScriptProcessor(1024, 1, 1);
+    source.connect(processor);
+    processor.connect(audioContext.destination);
+    processor.onaudioprocess = function (event) {
+      const buffer = event.inputBuffer.getChannelData(0);
+      const sum = buffer.reduce((acc, val) => acc + val ** 2, 0);//计算音量大小
+      voiceSize = Math.sqrt(sum / buffer.length);
+    };
+  } catch (err) {
+    console.log('getUserMedia error: ', err);
+  }
+}
+
 //胜利逻辑函数
 function winLogicFunc(who) {
   if (who == 'thief' || who == 'police') {
-    mic.stop();
     clearInterval(interval);
     song.play();
     whoWin = who
@@ -103,16 +116,15 @@ function winLogicFunc(who) {
     (who === 'thief' ? thiefWinGifNode : policeWinGifNode).style.visibility = 'visible';
   }
 }
-
-//开始按钮事件
+//开始游戏事件
 startBtn.addEventListener('click', () => {
+  getVoiceSize()
   startBtn.disabled = true;
-  mic.start(); //开启麦克风
   let dir = stepLen;
+  // policeDir = Math.floor(voiceSize * 100) / 10 * policeStepLen;
   //小偷、警察运动循环体
   interval = setInterval(() => {
-    voiceSize = map(mic.getLevel(), 0, 1, 0, 2); // 映射音量大小到速度值范围
-    policeDir = Math.floor(voiceSize * 100) / 10 * policeStepLen //计算实际速度
+    policeDir = Math.floor(voiceSize * 100) / 10 * policeStepLen
     thiefXPos += dir;
     policeXPos += policeDir;
     //小偷的改变方向逻辑
@@ -146,13 +158,12 @@ startBtn.addEventListener('click', () => {
   }, moveTime);
 });
 
-
-// 重新开始游戏
+//重新开始游戏
 restartBtn.addEventListener('click', () => {
-  mic.stop();
   thiefWinGifNode.style.visibility = 'hidden';
   policeWinGifNode.style.visibility = 'hidden';
   startBtn.disabled = false;
+  // 重新开始游戏
   clearInterval(interval);
   thiefXPos = 40;
   thiefYPos = 0;
@@ -160,8 +171,4 @@ restartBtn.addEventListener('click', () => {
   policeYPos = 0;
   whoWin = '';
   loop();
-});
-//关闭麦克风
-window.addEventListener('unload', () => {
-  mic.stop();
 });
