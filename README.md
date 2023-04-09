@@ -12,6 +12,12 @@ speak louderly to push the police move fast to catch the thief as quickly as pos
 
 ## 游戏运行效果
 
+![效果图1](https://raw.githubusercontent.com/forrestyuan/catchThief/main/demoGif/grapRuningDemo.gif)
+
+![效果图2](https://raw.githubusercontent.com/forrestyuan/catchThief/main/demoGif/policeWinDemo.gif)
+
+![效果图3](https://raw.githubusercontent.com/forrestyuan/catchThief/main/demoGif/thiefWinDemo.gif)
+
 ## 游戏开发思路
 
 1. 设计游戏规则和界面
