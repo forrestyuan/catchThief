@@ -13,7 +13,7 @@ const moveTime = 16;//循环时间
 let thiefImg = null;//小偷图片
 let thiefXPos = 40;//小偷横坐标
 let thiefYPos = 0;//小偷纵坐标
-const stepLen = 3; //小偷移动步长（速度）
+const stepLen = 0.5; //小偷移动步长（速度）
 
 let policeImg = null;//警察图片 
 let policeXPos = 0;//警察横坐标
@@ -165,6 +165,7 @@ restartBtn.addEventListener('click', () => {
   startBtn.disabled = false;
   // 重新开始游戏
   clearInterval(interval);
+  policeStepLen = Math.abs(policeStepLen)
   thiefXPos = 40;
   thiefYPos = 0;
   policeXPos = 0;
