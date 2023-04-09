@@ -172,3 +172,8 @@ restartBtn.addEventListener('click', () => {
   whoWin = '';
   loop();
 });
+
+window.onload = () => {
+  startBtn.disabled = false;
+  restartBtn.disabled = false;
+}
