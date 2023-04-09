@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>警察抓小偷游戏</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/p5.js/1.6.0/addons/p5.sound.min.js"></script>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div class="page">
+      <h1>警察抓小偷游戏</h1>
+      <div id="gameCanvas"></div>
+      <div id="player-info">
+        <span>
+          你说的音量:
+          <progress id="progress" value="0" max="2"></progress>
+          <span id="voiceVal"></span>
+        </span>
+        <span>
+          使得警察移动速度:
+          <progress id="policeProgress" value="0" max="6"></progress>
+          <span id="policeVal"></span>
+        </span>
+      </div>
+      <div class="imgBox">
+        <img id="policeGif" src="./resources/policeWin.gif" alt="" />
+        <img id="thiefGif" src="./resources/thiefWin.gif" alt="" />
+      </div>
+      <div class="fightImgBox">
+        <img src="./resources/fight_1.gif" alt="" />
+        <img src="./resources/fight_2.gif" alt="" />
+      </div>
+      <button id="start-btn">开始游戏</button>
+      <button id="restart-btn">重新开始</button>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>

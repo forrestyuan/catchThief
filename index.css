@@ -1,0 +1,80 @@
+html,
+body {
+  background-color: #efefef;
+  display: flex;
+  justify-content: center;
+}
+.page {
+  position: relative;
+  margin-top: 20px;
+  padding-top: 0px;
+  text-align: center;
+}
+canvas {
+  border: solid 10px pink;
+  border-radius: 10px;
+  box-shadow: 0 0 100px 0 #ccc;
+}
+#player-info {
+  margin: 5px 0;
+  font-weight: 400;
+  color: black;
+}
+/* For Firefox */
+progress::-moz-progress-bar {
+  background: green;
+}
+
+/* For Chrome or Safari */
+progress::-webkit-progress-value {
+  background: green;
+}
+
+/* For IE10 */
+progress {
+  background: green;
+}
+#voiceVal,
+#policeVal {
+  display: inline-block;
+  width: 20px;
+}
+.imgBox img {
+  width: 250px;
+  height: 250px;
+  position: absolute;
+  top: 196px;
+  left: 30%;
+  visibility: hidden;
+}
+.fightImgBox {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  background-color: red;
+}
+.fightImgBox img {
+  position: absolute;
+  left: 85%;
+  top: 0;
+  width: 100px;
+  height: 100px;
+}
+.fightImgBox img:first-child {
+  left: 5%;
+}
+button {
+  font-size: 14px;
+  padding: 5px 10px;
+  margin: 0 10px;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+button:last-child {
+  background-color: red;
+}
+button:disabled {
+  background-color: #ccc;
+}
